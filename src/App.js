@@ -1,29 +1,33 @@
 import React from 'react'
-import { Button } from 'antd'
-import { DownloadOutlined } from '@ant-design/icons'
+import { Row , Col } from 'antd'
 
 // 全局样式
 import './App.less'
-// 局部样式=>css模块化
-import style from './App.module.css'
+import Header from './components/header'
+import Footer from './components/footer'
+import Naviator from './components/naviator'
+import Menu from './components/naviator/menu'
+import Home from './components/pages/home'
 
-function Son(){
-    return(
-        <div className={style.box}>
-            Son组件
-        </div>
-    )
-}
 
 export default function App() {
   return (
-    <div className='div1'>
-        App<br></br>
-        <Button type='primary'>按钮1</Button>
-        <Button type='link'>按钮2</Button>
-        <Button type='primary' icon={<DownloadOutlined/>} >Download</Button>
-        <br></br>
-        <Son/>
+    <div className='warpper'>
+        <Row>
+            <Col span="5" className='warpper__left'>
+                <Naviator/>
+            </Col>
+            <Col
+            span="19"
+            className='warpper__right'
+            >
+                <Header/>
+                <Row className='warpper__right__content'>
+                  <Home/>
+                </Row>
+                <Footer/>
+            </Col>
+        </Row>
     </div>
   )
 }

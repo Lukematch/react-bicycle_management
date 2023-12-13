@@ -1,4 +1,19 @@
-.div1{
-    width: 300px;
-    background-color: rgb(202, 172, 185);
+.warpper{
+    padding: 0 auto;
+    margin: 0px;
+    &__left{
+        border-radius:2px;
+        background-color: #001529;
+        color: #fff;
+        height: calc(100vh);
+    }
+    &__right{
+        background-color: #fff;
+        height: calc(100ch);
+        overflow: auto;
+        &__content{
+            position: relative;
+            padding: 10px;
+        }
+    }
 }
