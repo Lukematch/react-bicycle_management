@@ -1,19 +1,33 @@
 .warpper{
-    padding: 0 auto;
-    margin: 0px;
+    // cursor: pointer;
     &__left{
         border-radius:2px;
         background-color: #001529;
         color: #fff;
-        height: calc(100vh);
+        height: 100vh;
     }
     &__right{
         background-color: #fff;
-        height: calc(100ch);
+        height: auto;
         overflow: auto;
         &__content{
-            position: relative;
-            padding: 10px;
+            // position: relative;
+            // padding: 10px;
+            margin: 10px;
+            height: calc(84vh);
+            width: auto;
+            /* 设置阴影 */
+            box-shadow: 2px 2px 50px rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            /* 设置card的背景色 */
+            // background: rgba(255, 255, 255, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            h1{
+                font-size: 18px;
+                color: #999;
+            }
         }
     }
 }

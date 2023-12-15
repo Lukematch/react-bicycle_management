@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { request } from '../../utils/request'
 
 
 export default function Menu() {
@@ -7,9 +8,7 @@ export default function Menu() {
 
     const getMenu = async ()=>{
         try{
-        const {data} = await axios.get(
-            'https://www.fastmock.site/mock/2728fdedd7e9063e308598df4c68fe46/_api/menu'
-        )
+        const {data} = await request('/menu')
         setMenu(data.menu)
         console.log(menu);
         } catch(error){
