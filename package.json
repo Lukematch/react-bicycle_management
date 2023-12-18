@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",
+    "amfe-flexible": "^2.2.1",
     "antd": "4",
     "axios": "^1.6.2",
     "craco-less": "^3.0.1",

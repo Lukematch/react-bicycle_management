@@ -25,6 +25,9 @@ craco.config.js
 .env.test.local
 .env.production.local
 
+/public/assets
+/public/gallery
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

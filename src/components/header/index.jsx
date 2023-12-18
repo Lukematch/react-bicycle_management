@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Breadcrumb, Col, Row } from 'antd'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
@@ -115,7 +116,7 @@ const extraBreadcrumbItems = pathSnippets.map((_, index) => {
     <div className='warpper__right__header'>
       <Row className='warpper__right__top'>
         <Col span="4" className='warpper__right__top__time'>
-          <h4 className='weather__date'>{time}</h4>
+          <h4>{time}</h4>
         </Col>
         <Col span="20" className='warpper__right__top__text'>
           <span>欢迎,{name}</span>
@@ -128,7 +129,8 @@ const extraBreadcrumbItems = pathSnippets.map((_, index) => {
         </Col>
         <Col span="20" className='warpper__right__weather'>
           <span className='weather__area'>{area}</span>
-          <span className='weather'>天气：{weather}</span>
+          <span className='weather'>天气：</span>
+          <a target='_blank' href='http://www.weather.com.cn/weather/101250101.shtml' rel="noreferrer">{weather}</a>
         </Col>
       </Row>
     </div>

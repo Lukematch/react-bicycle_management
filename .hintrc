@@ -11,5 +11,8 @@
     "not opera <= 98",
     "not safari <= 14.1",
     "not opera <= 99"
-  ]
+  ],
+  "hints": {
+    "meta-viewport": "off"
+  }
 }

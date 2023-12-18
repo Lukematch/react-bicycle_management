@@ -20,23 +20,23 @@ export default function Naviator() {
   // 获取当前路由
   const currentRoute = useLocation()
   // 初始化首选项
-  let firstOpenKey = ""
+  // let firstOpenKey = ""
   // 声明函数获取当前路由的路径
-  function findKey(obj){
-    return obj.key === currentRoute.pathname
-  }
+  // function findKey(obj){
+  //   return obj.key === currentRoute.pathname
+  // }
   // 遍历菜单列表，找到带children属性的项
   // 将带子项的菜单项备份为首选项
-  for(let i = 0;i<menu.length;i++){
-    // 判断是否能找到children中的path
-    if(menu[i]['children'] && menu[i]['children'].length>=1 && menu[i]['children'].find(findKey)){
-        firstOpenKey=menu[i].key
-        // console.log(menu[i].key)
-        break;
-    }
-  }
+  // for(let i = 0;i<menu.length;i++){
+  //   // 判断是否能找到children中的path
+  //   if(menu[i]['children'] && menu[i]['children'].length>=1 && menu[i]['children'].find(findKey)){
+  //       firstOpenKey=menu[i].key
+  //       // console.log(menu[i].key)
+  //       break;
+  //   }
+  // }
   // 设置打开项
-  const [openKeys, setOpenKeys] = useState([firstOpenKey]);
+  // const [openKeys, setOpenKeys] = useState([firstOpenKey]);
   // 生成跳转方法，设置菜单项点击跳转
   const useNavigateTo = useNavigate()
   const menuClick = (e)=>{
@@ -45,10 +45,10 @@ export default function Naviator() {
     useNavigateTo(e.key)
   }
   // 对上一项展开的菜单进行回收
-  const handleOpenChange = (key)=>{
-    setOpenKeys([key[key.length
-    -1]])
-  }
+  // const handleOpenChange = (key)=>{
+  //   setOpenKeys([key[key.length
+  //   -1]])
+  // }
 
   useEffect(()=>{
     getMenu()
@@ -67,12 +67,12 @@ export default function Naviator() {
       defaultSelectedKeys={['1']}
       // 默认展开
       // defaultOpenKeys={['sub1']}
-      mode="inline"
+      // mode="inline"
       onClick={menuClick}
       // 某项菜单展开回收的事件
-      onOpenChange={handleOpenChange}
+      // onOpenChange={handleOpenChange}
       // 当前展开项的key输出
-      openKeys={openKeys}
+      // openKeys={openKeys}
       />
     </>
   )
