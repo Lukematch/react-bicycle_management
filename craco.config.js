@@ -18,5 +18,14 @@ module.exports = {
     alias:{
       '@':path.resolve(__dirname,'src')
     }
-  }
+  },
+  test: /.tsx?$/,
+  use: [
+    {
+      loader: 'ts-loader',
+      options: {
+        transpileOnly: true,
+      },
+    },
+  ],
 };

@@ -11,32 +11,48 @@ export default function Basic() {
     {
       title:'姓名',
       dataIndex:'name',
-      key:'name'
+      width:120,
+      align:'center' ,
+      key:'name',
+      filters:[],
+      filterSearch: true,
+      fixed:'left'
     },
     {
       title:'年龄',
       dataIndex:'age',
+      width:120,
+      align:'center' ,
+      fixed:'left',
       key:'age',
-      sorter: (a, b) => a.age - b.age,
+      sorter: (a, b) => a.age - b.age
     },
     {
       title:'所在ip',
       dataIndex:'ip',
+      width:200,
+      align:'center' ,
       key:'ip'
     },
     {
       title:'时间',
       dataIndex:'datatime',
+      width:200,
+      align:'center' ,
       key:'datatime'
     },
     {
       title:'标题',
       dataIndex:'title',
+      width:200,
+      align:'center' ,
       key:'title'
     },
     {
       title:'描述',
       dataIndex:'descript',
+      width:500,
+      align:'center' ,
       key:'descript'
     }
   ]
@@ -56,21 +72,22 @@ export default function Basic() {
   },[])
 
   return (
-      <div className="warpper">
-        <Card className='card-warp'>
+      <>
           <Table
           // loading
-          // className='table'
-          bordered='true'
-          rowClassName = {(index)=>{
-            let className = index % 2 ? 'shallow_gray': 'deep_gray';
-            return className
+          bordered
+          pagination={{
+            position: ['bottomCenter'],
+            // pageSize:['9']
           }}
-          size='small'
+          // size='large'
           dataSource={dataSource}
           columns={columns}
+          scroll={{
+            x:'auto',
+            y:480
+          }}
           />
-        </Card>
-      </div>
+      </>
   )
 }

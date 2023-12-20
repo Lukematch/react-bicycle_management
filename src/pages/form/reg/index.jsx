@@ -11,7 +11,10 @@ export default function Reg() {
   const [cityList,setCityList] = useState([])
   const [province,setProvince] = useState([])
   const [selectedCitys,setSelectedCitys]  = useState([])
+  // 省份下拉同步更新城市-省市联动
+  const [secondCity, setSecondCity] = useState()
 
+  // 获取到全国城市列表
   const getCitys = async ()=>{
     try{
       const citys = await request('/citys')
@@ -22,6 +25,7 @@ export default function Reg() {
         throw new Error(error)
       }
   }
+  // 获取到全国省份列表
   const getProvinces = async ()=>{
     try{
       const data = await request('/provinces')
@@ -31,6 +35,7 @@ export default function Reg() {
         throw new Error(error)
       }
   }
+  // 执行获取省份、城市方法
   useEffect(()=>{
     getProvinces()
     getCitys()
@@ -39,23 +44,25 @@ export default function Reg() {
     // setSelectedCitys([])
   },[selectedCitys])
 
+  // 获取选中省份后对应的城市列表
+  // 通过遍历城市列表的provinceName与选中的省份值进行比较，匹配对应的城市列表
   const getSelected =(value)=>{
     // setSelectedCitys([{value:'城市'}])
     cityList.map((item)=>{
       if(item.provinceName === value){
         setSelectedCitys(item.citys)
+        setSecondCity(item.citys[0].value)
+        console.log(item.citys[0].value);
+        // console.log(selectedCitys)
       }
       // console.log(value)
       // console.log(item.provinceName);
     })
-    console.log(selectedCitys);
   }
-  const selectCity =(value)=>{
-    // console.log(value);
+  const onSecondCityChange = (value)=>{
+    setSecondCity(value)
   }
-  const onChange =()=>{
 
-  }
 
   const register =(value)=>{
     console.log(value);
@@ -158,20 +165,18 @@ export default function Reg() {
                   // width: 140,
                 }}
                 options={province}
-                onSelect={getSelected}
+                onChange={getSelected}
+                // onChange={}
               />
             </FormItem>
             <FormItem
             label='所在城市'
             name='city'>
               <Select
-              defaultValue='城市'
-              // style={{width: 160}}
+              value={secondCity ? secondCity : '城市'}
               options={selectedCitys}
-              onSelect={selectCity}
-              onChange={onChange}
-              >
-              </Select>
+              onChange={onSecondCityChange}
+            />
             </FormItem>
             <Button
             type='primary'

@@ -1,13 +1,45 @@
-import React from 'react'
+// @ts-nocheck
+import React, { useState } from 'react'
 // import './App.less'
+import { Editor } from 'react-draft-wysiwyg'
+import { EditorState , convertToRaw } from 'draft-js'
+import draftToHtml from 'draftjs-to-html'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import { Button, Card, Modal } from 'antd'
 
-// @ts-ignore
-
+// draft-js react富文本编辑器框架
+// draft-js提供convertToRaw用于把不可变的数据转换为js对象
+// draftToHtml将不可变数据转换为纯Html的文本
 
 export default function Rich() {
+
+  const [editorState,setEditorState] = useState(EditorState.createEmpty())
+  const [showText,setShowText] = useState(false)
+
+  const getText = ()=>{
+    console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())))
+    setShowText(true)
+  }
   return (
-    <div className="warpper">
-        <h1>Rich</h1>
-    </div>
+    <>
+    <Card style={{
+      'height':500,
+      'width':950
+      }}>
+      <Editor
+          editorState={editorState}
+          onEditorStateChange={val=>setEditorState(val)}
+        />
+        <Button type='primary' onClick={getText}>提交</Button>
+    </Card>
+    <Modal
+    title='富文本'
+    open={showText}
+    onCancel={()=>setShowText(false)}
+    footer={null}
+    >
+      {draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+    </Modal>
+    </>
   )
 }

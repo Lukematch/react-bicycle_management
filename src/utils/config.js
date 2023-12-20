@@ -3,6 +3,9 @@
 
 const DEVELOPMENT = 'https://www.fastmock.site/mock/162a46feee93219950564d2a1f2d591e/bicycle'
 
+// const DEVELOPMENT = 'https://www.fastmock.site/mock/2728fdedd7e9063e308598df4c68fe46/_api'
+
+
 const PRODUCTION = ''
 
 // process是node的全局变量
