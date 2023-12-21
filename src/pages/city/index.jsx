@@ -1,59 +1,55 @@
-//@ts-nocheck
-import { Button, Card, Form, Select } from 'antd'
-import React, { useState } from 'react'
-// import './App.less'
-const FormItem = Form.Item
-const Option = Select.Option
+// @ts-nocheck
+import { Button, Card, Modal } from 'antd'
+import React, { useRef, useState } from 'react'
+import FilterForm from './FilterForm'
+import CityForm from './CityForm'
+import CityList from './CityList'
+import { useSelector } from 'react-redux'
 
 export default function City() {
-  const [form] = Form.useForm()
+  const [modal,setModal] = useState(false)
+//   1.使用useRef
+//   const cityRefs = useRef()
+//   2.使用redux(获取store里的状态)
+    const {cityForm} = useSelector((state)=>({
+        cityForm:state.getCityForm.cityForm
+    }))
 
-  const getData = (values)=>{
-    console.log(values)
-  }
-  const onReset = ()=>{
-    form.resetFields()
-  }
+    const getData = ()=>{
+        // console.log(cityRefs.current.formFields.getFieldsValue())
+        console.log(cityForm);
+        setModal(false)
+    }
+
   return (
-    <>
-        <Form
-        layout='inline'
-        onFinish={getData}
-        form={form}
-        >
-          <FormItem label='城市' name='city'>
-            <Select style={{'width':100}}>
-              <Option value=''>全部</Option>
-              <Option value='1'>北京市</Option>
-              <Option value='2'>上海市</Option>
-              <Option value='3'>深圳市</Option>
-            </Select>
-          </FormItem>
-          <FormItem label='运营模式' name='op_mode'>
-            <Select style={{'width':100}}>
-              <Option value=''>全部</Option>
-              <Option value='1'>自营</Option>
-              <Option value='2'>加盟</Option>
-            </Select>
-          </FormItem>
-          <FormItem label='授权状态' name='status'>
-            <Select style={{'width':100}}>
-              <Option value=''>全部</Option>
-              <Option value='1'>已授权</Option>
-              <Option value='2'>未授权</Option>
-            </Select>
-          </FormItem>
-          <FormItem>
-            <Button type='primary' style={{
-              margin:'0 20px'
+    <div style={{width:'100%'}}>
+        <Card>
+            <FilterForm/>
+        </Card>
+        <Card style={{
+            height:470,
+            marginTop:0
             }}
-            htmlType='submit'
-            >
-              查询
-            </Button>
-            <Button onClick={onReset}>重置</Button>
-          </FormItem>
-        </Form>
-    </>
+        >
+            <Button
+            type='primary'
+            onClick={()=>{
+                setModal(true)
+            }}
+            >开通城市</Button>
+            <CityList/>
+        </Card>
+        <Modal
+        title='开通城市'
+        open={modal}
+        onCancel={()=>{
+            setModal(false)
+        }}
+        onOk={getData}
+        >
+            {/* <CityForm ref={cityRefs}/> */}
+            <CityForm/>
+        </Modal>
+    </div>
   )
 }

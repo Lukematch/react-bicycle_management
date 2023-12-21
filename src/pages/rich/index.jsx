@@ -21,17 +21,17 @@ export default function Rich() {
     setShowText(true)
   }
   return (
-    <>
+    <div style={{width:'100%'}}>
     <Card style={{
-      'height':500,
-      'width':950
+      'height':300,
+      'width':900
       }}>
       <Editor
           editorState={editorState}
           onEditorStateChange={val=>setEditorState(val)}
         />
-        <Button type='primary' onClick={getText}>提交</Button>
     </Card>
+    <Button type='primary' onClick={getText}>提交</Button>
     <Modal
     title='富文本'
     open={showText}
@@ -40,6 +40,6 @@ export default function Rich() {
     >
       {draftToHtml(convertToRaw(editorState.getCurrentContent()))}
     </Modal>
-    </>
+    </div>
   )
 }

@@ -12,7 +12,9 @@ export default function Reg() {
   const [province,setProvince] = useState([])
   const [selectedCitys,setSelectedCitys]  = useState([])
   // 省份下拉同步更新城市-省市联动
-  const [secondCity, setSecondCity] = useState()
+  // const [secondCity, setSecondCity] = useState('')
+  // Form接管setState等数据同步
+  const [form] = Form.useForm()
 
   // 获取到全国城市列表
   const getCitys = async ()=>{
@@ -51,7 +53,8 @@ export default function Reg() {
     cityList.map((item)=>{
       if(item.provinceName === value){
         setSelectedCitys(item.citys)
-        setSecondCity(item.citys[0].value)
+        // setSecondCity(item.citys[0].value)
+        form.setFieldValue('city',item.citys[0].value)
         console.log(item.citys[0].value);
         // console.log(selectedCitys)
       }
@@ -59,11 +62,6 @@ export default function Reg() {
       // console.log(item.provinceName);
     })
   }
-  const onSecondCityChange = (value)=>{
-    setSecondCity(value)
-  }
-
-
   const register =(value)=>{
     console.log(value);
   }
@@ -74,6 +72,7 @@ export default function Reg() {
           <Form
           name='register'
           onFinish={register}
+          form={form}
           >
             <FormItem
             label='账号'
@@ -158,9 +157,10 @@ export default function Reg() {
             <FormItem
             label='所在省份'
             name='province'
+            initialValue='省份'
             >
               <Select
-                defaultValue='省份'
+                // defaultValue='省份'
                 style={{
                   // width: 140,
                 }}
@@ -171,12 +171,16 @@ export default function Reg() {
             </FormItem>
             <FormItem
             label='所在城市'
-            name='city'>
+            name='city'
+            initialValue='城市'
+            >
               <Select
-              value={secondCity ? secondCity : '城市'}
+              // 被设置了 name 属性的 Form.Item 包装的控件，表单控件会自动添加 value（或 valuePropName 指定的其他属性） onChange（或 trigger 指定的其他属性），数据同步将被 Form 接管
+              // 不应该用 setState，可以使用 form.setFieldsValue 来动态改变表单值
+              // value={secondCity ? secondCity : '城市'}
               options={selectedCitys}
-              onChange={onSecondCityChange}
-            />
+              // onChange={onSecondCityChange}
+              />
             </FormItem>
             <Button
             type='primary'
