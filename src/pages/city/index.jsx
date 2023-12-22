@@ -11,9 +11,13 @@ export default function City() {
 //   1.使用useRef
 //   const cityRefs = useRef()
 //   2.使用redux(获取store里的状态)
-    const {cityForm} = useSelector((state)=>({
-        cityForm:state.getCityForm.cityForm
-    }))
+    // const {cityForm} = useSelector((state)=>({
+    //     cityForm:state.getCityForm.cityForm
+    // }))
+    // const {cityForm} = useSelector((state)=>(state.user))
+//   3.rtk(redux toolkit)
+//  不改变写法  拿数据
+    const {cityForm} = useSelector(state => state.cityForm)
 
     const getData = ()=>{
         // console.log(cityRefs.current.formFields.getFieldsValue())
@@ -46,6 +50,7 @@ export default function City() {
             setModal(false)
         }}
         onOk={getData}
+        // footer={null}
         >
             {/* <CityForm ref={cityRefs}/> */}
             <CityForm/>

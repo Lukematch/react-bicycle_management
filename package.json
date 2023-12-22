@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",
+    "@reduxjs/toolkit": "^2.0.1",
     "amfe-flexible": "^2.2.1",
     "antd": "4",
     "axios": "^1.6.2",

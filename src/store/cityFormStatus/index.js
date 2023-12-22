@@ -1,5 +1,6 @@
 // 导入redux
 const redux = require('redux')
+
 // 设置状态（初始化数据）
 // const initState = {
 //     count:0
@@ -8,11 +9,11 @@ const redux = require('redux')
 // store
 const store = {
     state:{
-        cityForm:{city_id:'北京'}
+        cityForm:{}
     },
     actions:{
         setCityForm(newState,action){
-            newState = action.value
+           newState.cityForm = action.value
         }
     },
     asyncAction:{
