@@ -16,8 +16,7 @@
 // export default store
 
 
-
-// rtk写法
+// react-toolkit写法
 import { configureStore } from "@reduxjs/toolkit"
 import cityForm from "./cityForm"
 // redux-toolkit

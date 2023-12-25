@@ -2,26 +2,25 @@
 import { Breadcrumb, Col, Row } from 'antd'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
-
 import axios from 'axios'
 import './index.less'
 // 引入时间中文包
 import 'moment/locale/zh-cn'
 import { Link, useLocation } from 'react-router-dom'
 import { request } from '../../utils/request'
-import routes from '../../router'
 // 设置中文
 moment.locale('zh-cn')
 export default function Header() {
   const getTime = ()=>{
     return moment().format('dddd a h:mm:ss')
   }
+  // 调用黑马天气接口
   const getWeather = async()=>{
     await axios({
       url:'https://hmajax.itheima.net/api/weather',
       params:{
-        // city:110000
-        city:430100
+        // city:110000 北京
+        city:430100//长沙城市编码
       }
     }).then(res=>{
       const {data} = res.data
@@ -31,24 +30,10 @@ export default function Header() {
     })
   }
   const [name,setName] = useState('管理员')
-  // const [title,setTitle] = useState('首页')
   const [time,setTime] = useState(getTime())
   const [weather,setWeather] = useState()
   const [area,setArea] = useState()
-  const [menuList,setMenuList] = useState([])
-   // 存放路由和标题对应信息
-//  const [breadcrumbNameMap, setbreadcrumbNameMap] = useState([])
 
-// 获取菜单列表
- const getMenu = async ()=>{
-  try{
-    const data = await request('/menu')
-    setMenuList(data.menu)
-    // console.log(data.menu[0]);
-  } catch(error){
-    throw new Error(error)
-  }
-}
 // 声明路由匹配路径
 const breadcrumbNameMap = {
   '/home': '首页',

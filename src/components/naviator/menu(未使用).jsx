@@ -17,6 +17,7 @@ export default function Menu() {
     }
     useEffect(()=>{
         getMenu()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       },[])
 
     // 递归实现

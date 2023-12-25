@@ -1,10 +1,11 @@
 // @ts-nocheck
 import { Button, Card, Modal } from 'antd'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import FilterForm from './FilterForm'
 import CityForm from './CityForm'
 import CityList from './CityList'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { listData } from '../../store/cityForm'
 
 export default function City() {
   const [modal,setModal] = useState(false)
@@ -18,12 +19,18 @@ export default function City() {
 //   3.rtk(redux toolkit)
 //  不改变写法  拿数据
     const {cityForm} = useSelector(state => state.cityForm)
+    const dispatch = useDispatch()
 
     const getData = ()=>{
         // console.log(cityRefs.current.formFields.getFieldsValue())
         console.log(cityForm);
         setModal(false)
     }
+
+    useEffect(()=>{
+        dispatch(listData())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
 
   return (
     <div style={{width:'100%'}}>
