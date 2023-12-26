@@ -19,10 +19,11 @@
 // react-toolkit写法
 import { configureStore } from "@reduxjs/toolkit"
 import cityForm from "./cityForm"
+import createUser from "./createUser"
 // redux-toolkit
 // 可以单独传一个reducer，也可以传一个对象
 export default configureStore({
     reducer:{
-        cityForm
+        cityForm,createUser
     }
 })

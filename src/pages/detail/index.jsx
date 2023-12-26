@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { useState } from 'react'
 // import './App.less'
-import { Button, Card, DatePicker, Form, Select, Table } from 'antd'
+import { Button, Card, DatePicker, Form, Modal, Select, Table, message } from 'antd'
 import moment from 'moment'
 import { request } from '../../utils/request'
 
@@ -12,6 +12,9 @@ export default function Detail() {
 
   const [form] = Form.useForm()
   const [detailInfo,setDetailInfo] = useState([])
+  const [showDetailInfo,setShowDetailInfo] = useState(false)
+  const [selectedDetail,setSelectedDetail] = useState({})
+  const [closeDetail,setCloseDetail] = useState(false)
 
   const getDate =  async (values)=>{
     // console.log(values)
@@ -33,7 +36,6 @@ export default function Detail() {
       throw new Error(error)
     }
   }
-
   const columns = [
     {
       title:'订单编号',
@@ -113,8 +115,27 @@ export default function Detail() {
   ]
 
   const rowSelection ={
-    type:'radio'
+    type:'radio',
+    onChange:(selectedRowKey,selectedRows)=>{
+      console.log(selectedRows)
+      setSelectedDetail(selectedRows[0])
+    }
   }
+  const showDetail = ()=>{
+    if(selectedDetail.order_sn){
+      setShowDetailInfo(true)
+    }else{
+      message.error('请选择订单')
+    }
+  }
+  const closedDetail = ()=>{
+    if(selectedDetail.order_sn){
+      setCloseDetail(true)
+    }else{
+      message.error('请选择订单')
+    }
+  }
+
 
   return (
     <div style={{width:'100%'}}>
@@ -163,8 +184,15 @@ export default function Detail() {
             marginBottom:10,
             marginRight:10
           }}
+          onClick={()=>{
+            showDetail()
+          }}
           >订单详情</Button>
-          <Button type='primary'>结束订单</Button>
+          <Button type='primary'
+          onClick={()=>{
+            closedDetail()
+          }}
+          >结束订单</Button>
           <Table
           columns={columns}
           dataSource={detailInfo}
@@ -181,6 +209,75 @@ export default function Detail() {
           // 有个坑，后端数据没有标识符key的情况下需要手动添加rowKey作为表示，否则选择单项会全选，因为所有的项是同一个key，即null
           rowKey={detailInfo=>detailInfo.order_sn}
           ></Table>
+          <Modal
+          title='订单详情'
+          open={showDetailInfo}
+          keyboard
+          centered
+          cancelText='取消'
+          okText='确定'
+          onCancel={()=>{
+            setShowDetailInfo(false)
+          }}
+          onOk={()=>{
+            setShowDetailInfo(false)
+          }}
+          >
+            <h3>基础信息</h3>
+            <span>用车模式：{selectedDetail.mode === 1 ? '服务区' : (selectedDetail.mode === 0 ? '停车点' : '')}</span>
+            <br></br>
+            <span>订单编号：{selectedDetail.order_sn}</span>
+            <br></br>
+            <span>车辆编号：{selectedDetail.bike_sn}</span>
+            <br></br>
+            <span>用户姓名：{selectedDetail.user_name}</span>
+            <br></br>
+            <span>手机号码：{selectedDetail.mobile}</span>
+            <br></br><br></br>
+            <h3>行程轨迹</h3>
+            <span>行程起点：{selectedDetail.start}</span>
+            <br></br>
+            <span>行程终点：{selectedDetail.end}</span>
+            <br></br>
+            <span>行程里程：{selectedDetail.distance}</span>
+          </Modal>
+          <Modal
+          title='结束订单'
+          open={closeDetail}
+          cancelText='取消'
+          okText='确定'
+          keyboard
+          centered
+          onCancel={()=>{
+            setCloseDetail(false)
+          }}
+          onOk={()=>{
+            // setCloseDetail(false)
+            Modal.confirm({
+              title: '确定结束订单?',
+              cancelText:'取消',
+              okText:'确定',
+              onOk(){
+                setCloseDetail(false)
+                message.success(`成功结束订单${selectedDetail.order_sn}`)
+                setSelectedDetail('')
+              },
+              onCancel(){
+                message.info('请重新确认')
+              }
+            })
+          }}
+          >
+            <h3>订单编号：{selectedDetail.order_sn}</h3>
+            <span>车辆编号：{selectedDetail.bike_sn}</span>
+            <br></br>
+            <span>订单金额：{selectedDetail.total_fee}</span>
+            <br></br>
+            <span>开始时间：{selectedDetail.start_time}</span>
+            <br></br>
+            <span>当前位置：{selectedDetail.location}</span>
+            <br></br>
+          </Modal>
         </Card>
     </div>
   )
