@@ -4,6 +4,7 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import {createUser} from '../../store/createUser'
 
+const moment = require('moment')
 const FormItem = Form.Item
 const Option = Select.Option
 
@@ -19,18 +20,20 @@ export default function AddUser() {
   const galary = Form.useWatch('galary',form)
   const phone = Form.useWatch('phone',form)
   const address = Form.useWatch('address',form)
+  const formattedTime = moment().format('YYYY-MM-DD HH:mm:ss')
   useEffect(()=>{
     dispatch(createUser({
         id:id,
-        name:name,
-        sex:sex,
-        status:status,
-        galary:galary,
+        staff_name:name,
+        staff_gender:sex,
+        staff_status:status,
+        staff_salary:galary,
         phone:phone,
-        address:address
+        native_place:address,
+        entry_time:formattedTime
       }))
     console.log('dispatch|createUser被修改')
-  },[address, dispatch, galary, id, name, phone, sex, status])
+  },[address, dispatch, formattedTime, galary, id, name, phone, sex, status])
 
   return (
     <div>
